@@ -19,12 +19,10 @@ export default async function Home() {
   );
 
   return (
-    <div className="min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="bg-background text-foregroundmin-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <header className="text-center mb-16">
         <h1 className="text-4xl font-bold">My Pokemons</h1>
-        <p className="text-xl text-gray-600">
-          Welcome To My Pokemon Collection
-        </p>
+        <p className="text-xl">Welcome To My Pokemon Collection</p>
       </header>
       <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {pokemons.map((pokemon, index) => (

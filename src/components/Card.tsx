@@ -23,7 +23,7 @@ export default function Card({ pokemon }: Props) {
           />
 
           <h2 className="text-2xl font-semibold capitalize">{pokemon.name}</h2>
-          <p className="text-gray-700">{`This is ${pokemon.name}`}</p>
+          <p className="text-forground-light">{`This is ${pokemon.name}`}</p>
         </article>
       </ViewTransition>
     </Link>
