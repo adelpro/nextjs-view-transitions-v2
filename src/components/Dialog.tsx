@@ -1,70 +1,57 @@
 import { cn } from "@/utils";
 import React, {
   ReactNode,
+  RefObject,
   startTransition,
-  useLayoutEffect,
-  useRef,
   unstable_ViewTransition as ViewTransition,
 } from "react";
+
 type DialogProps = {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  dialogRef: RefObject<HTMLDialogElement | null>;
   children: ReactNode;
   hideCloseButton?: boolean;
   className?: string;
 };
 
 export default function Dialog({
-  isOpen,
-  setIsOpen,
+  dialogRef,
   hideCloseButton = false,
   children,
   className,
 }: DialogProps) {
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
-
-  useLayoutEffect(() => {
-    if (isOpen && !dialogRef.current?.open) {
-      dialogRef.current?.showModal();
-    } else if (!isOpen && dialogRef.current?.open) {
-      dialogRef.current?.close();
-    }
-  }, [isOpen]);
-
   const closeDialog = () => {
     startTransition(() => {
-      setIsOpen(false);
+      dialogRef?.current?.close();
     });
   };
 
   return (
-    <dialog
-      ref={dialogRef}
-      onClick={(event) => {
-        if (event.target === dialogRef.current) {
-          closeDialog();
-        }
-      }}
-      onKeyDown={(event) => {
-        if (event.key === "Escape") {
-          closeDialog();
-        }
-      }}
-      className={cn(
-        "top-50 left-50 -translate-x-50 -translate-y-50 fixed z-10 mx-auto w-[98%] max-w-xl origin-top animate-slideInWithFade overflow-auto rounded-xl backdrop:bg-zinc-800/50 dark:backdrop:bg-zinc-200/50",
-        className
-      )}
-    >
-      {" "}
-      <ViewTransition name={"about_dialog"}>
-        <main className="w-full rounded-xl bg-background p-2 pr-5 text-foreground flex justify-center items-center">
+    <ViewTransition name={"about_dialog"}>
+      <dialog
+        ref={dialogRef}
+        onClick={(event) => {
+          if (event.target === dialogRef?.current) {
+            closeDialog();
+          }
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") {
+            closeDialog();
+          }
+        }}
+        className={cn(
+          "fixed inset-0 translate-50 z-10 flex items-center justify-center backdrop:bg-zinc-800/50 dark:backdrop:bg-zinc-200/50",
+          className
+        )}
+      >
+        <main className="w-full max-w-xl rounded-xl bg-background p-2 pr-5 text-foreground flex flex-col items-center">
           {!hideCloseButton && (
-            <div className="flex justify-start">
+            <div className="self-end">
               <button
                 type="button"
                 onClick={() => closeDialog()}
                 aria-label="Close"
-                className="transition-transform duration-200 hover:scale-110"
+                className="transition-transform duration-200 hover:scale-110 cursor-pointer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +76,7 @@ export default function Dialog({
           )}
           {children}
         </main>
-      </ViewTransition>
-    </dialog>
+      </dialog>
+    </ViewTransition>
   );
 }

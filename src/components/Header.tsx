@@ -1,17 +1,17 @@
 "use client";
 import React, {
   startTransition,
-  useState,
+  useRef,
   unstable_ViewTransition as ViewTransition,
 } from "react";
 import Link from "next/link";
 import Dialog from "./Dialog";
 
 export default function Header() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const openDialog = () => {
     startTransition(() => {
-      setIsModalOpen(true);
+      dialogRef.current?.showModal();
     });
   };
   return (
@@ -57,8 +57,13 @@ export default function Header() {
         </button>
       </div>
       <ViewTransition name={"about_dialog"}>
-        <Dialog isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
-          <p>Welcome to My Pokemon Collection web application</p>
+        <Dialog
+          dialogRef={dialogRef}
+          className="flex justify-center items-center"
+        >
+          <div className="h-20 flex justify-center items-center">
+            <p>Welcome to My Pokemon Collection web application</p>
+          </div>
         </Dialog>
       </ViewTransition>
     </>
