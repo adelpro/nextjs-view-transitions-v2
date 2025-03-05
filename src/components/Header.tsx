@@ -11,7 +11,9 @@ export default function Header() {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const openDialog = () => {
-    dialogRef.current?.showModal();
+    startTransition(() => {
+      dialogRef.current?.showModal();
+    });
   };
   return (
     <>
@@ -55,12 +57,13 @@ export default function Header() {
           <span className="hidden sm:block">About</span>
         </button>
       </div>
-
-      <Dialog ref={dialogRef} className="flex justify-center items-center">
-        <div className="h-20 flex justify-center items-center">
-          <p>Welcome To My Pokemon Collection Web Application</p>
-        </div>
-      </Dialog>
+      <ViewTransition name="about-dialog">
+        <Dialog ref={dialogRef} className="flex justify-center items-center">
+          <div className="h-20 flex justify-center items-center">
+            <p>Welcome To My Pokemon Collection Web Application</p>
+          </div>
+        </Dialog>
+      </ViewTransition>
     </>
   );
 }
