@@ -9,10 +9,9 @@ import Dialog from "./Dialog";
 
 export default function Header() {
   const dialogRef = useRef<HTMLDialogElement>(null);
+
   const openDialog = () => {
-    startTransition(() => {
-      dialogRef.current?.showModal();
-    });
+    dialogRef.current?.showModal();
   };
   return (
     <>
@@ -56,16 +55,12 @@ export default function Header() {
           <span className="hidden sm:block">About</span>
         </button>
       </div>
-      <ViewTransition name={"about_dialog"}>
-        <Dialog
-          dialogRef={dialogRef}
-          className="flex justify-center items-center"
-        >
-          <div className="h-20 flex justify-center items-center">
-            <p>Welcome to My Pokemon Collection web application</p>
-          </div>
-        </Dialog>
-      </ViewTransition>
+
+      <Dialog ref={dialogRef} className="flex justify-center items-center">
+        <div className="h-20 flex justify-center items-center">
+          <p>Welcome To My Pokemon Collection Web Application</p>
+        </div>
+      </Dialog>
     </>
   );
 }
