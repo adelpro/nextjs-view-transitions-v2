@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Pokemon } from "@/types";
 import { notFound } from "next/navigation";
 import { unstable_ViewTransition as ViewTransition } from "react";
-import Link from "next/link";
+import Header from "@/components/Header";
 
 type Props = {
   params: Promise<{
@@ -35,27 +35,7 @@ export default async function PokemonPage({ params }: Props) {
 
   return (
     <div className="min-h-screen p-8 pb-20 flex flex-col items-center relative bg-background text-foreground">
-      <Link className="absolute top-0 left-0" href="/">
-        <button className="ml-4 mt-4 px-4 py-2 rounded cursor-pointer transition-transform transform hover:scale-105">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="36"
-            height="36"
-            viewBox="0 0 36 36"
-          >
-            <path
-              fill="currentColor"
-              d="m33.71 17.29l-15-15a1 1 0 0 0-1.41 0l-15 15a1 1 0 0 0 1.41 1.41L18 4.41l14.29 14.3a1 1 0 0 0 1.41-1.41Z"
-            />
-            <path
-              fill="currentColor"
-              d="M28 32h-5V22H13v10H8V18l-2 2v12a2 2 0 0 0 2 2h7V24h6v10h7a2 2 0 0 0 2-2V19.76l-2-2Z"
-            />
-            <path fill="none" d="M0 0h36v36H0z" />
-          </svg>
-        </button>
-      </Link>
-
+      <Header />
       <ViewTransition name={`card-${pokemon.id}`}>
         <main className="flex flex-col gap-x-1 items-center w-full max-w-2xl p-2 md:px-8">
           <h1 className="text-5xl font-extrabold capitalize">{pokemon.name}</h1>
