@@ -1,9 +1,5 @@
 "use client";
-import React, {
-  startTransition,
-  useRef,
-  unstable_ViewTransition as ViewTransition,
-} from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import Dialog from "./Dialog";
 
@@ -11,9 +7,7 @@ export default function Header() {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const openDialog = () => {
-    startTransition(() => {
-      dialogRef.current?.showModal();
-    });
+    dialogRef.current?.showModal();
   };
   return (
     <>
@@ -57,13 +51,12 @@ export default function Header() {
           <span className="hidden sm:block">About</span>
         </button>
       </div>
-      <ViewTransition name="about-dialog">
-        <Dialog ref={dialogRef} className="flex justify-center items-center">
-          <div className="h-20 flex justify-center items-center">
-            <p>Welcome To My Pokemon Collection Web Application</p>
-          </div>
-        </Dialog>
-      </ViewTransition>
+
+      <Dialog ref={dialogRef} className="flex justify-center items-center">
+        <div className="h-20 flex justify-center items-center">
+          <p>Welcome To My Pokemon Collection Web Application</p>
+        </div>
+      </Dialog>
     </>
   );
 }
