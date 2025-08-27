@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js View Transitions v2
 
-## Getting Started
+> Exploring Next.js viewTransition with Card Animations
 
-First, run the development server:
+I've been experimenting with the new Next.js beta feature:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```js
+export const experimental = { viewTransition: true }
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+It integrates the browser's new View Transitions API, enabling smooth card-to-page animations without extra libraries.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+In this demo, a card expands into a full page view — powered natively by the browser + Next.js.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Quick Start
 
-## Learn More
+```bash
+# Clone & run
+git clone https://github.com/adelpro/nextjs-view-transitions-v2.git
+cd nextjs-view-transitions-v2
+yarn install
+yarn dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) to see it in action.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 What it does
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Smooth transitions**: Cards seamlessly expand into full pages
+- **Zero dependencies**: Uses native browser View Transitions API
+- **Effortless implementation**: Just add `experimental.viewTransition = true`
+- **TypeScript + Tailwind**: Clean, modern stack
 
-## Deploy on Vercel
+## 🔧 How it works
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The magic happens in two places:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Enable the feature** in your page/layout:
+   ```js
+   export const experimental = { viewTransition: true }
+   ```
+
+2. **Style your transitions** with CSS:
+   ```css
+   ::view-transition-old(root) {
+     animation: fade-out 0.3s ease-out;
+   }
+   
+   ::view-transition-new(root) {
+     animation: fade-in 0.3s ease-in;
+   }
+   ```
+
+That's it. The browser handles the rest.
+
+## 🌐 Links
+
+- **Live demo**: [nextjs-view-transitions-v2.vercel.app](https://nextjs-view-transitions-v2.vercel.app/)
+- **Source code**: [github.com/adelpro/nextjs-view-transitions-v2](https://github.com/adelpro/nextjs-view-transitions-v2)
+
+This experiment highlights how effortless UI transitions can become with built-in framework + browser support.
+
+## 📦 Stack
+
+- Next.js 15 (App Router)
+- TypeScript
+- Tailwind CSS
+- [PokéAPI](https://pokeapi.co/) for Pokémon data
+
+## 📊 Data Source
+
+This project uses [**PokéAPI**](https://pokeapi.co/) - the RESTful Pokémon API providing comprehensive data including:
+- Pokémon stats, abilities, and types
+- High-resolution official artwork
+- Species information and evolution chains
+
+**API Details:**
+- **Provider**: [PokéAPI](https://pokeapi.co/)
+- **Documentation**: [pokeapi.co/docs/v2](https://pokeapi.co/docs/v2)
+- **License**: [MIT License](https://github.com/PokeAPI/pokeapi/blob/master/LICENSE.md)
+
+---
+
+*Built while exploring the future of web animations. No magic, just web standards.*
